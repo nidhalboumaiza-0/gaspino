@@ -17,20 +17,59 @@ client/  Flutter application using BLoC and clean architecture concepts
 server/  Express and MongoDB REST API
 ```
 
-## Getting Started
+## Run Locally
 
-```bash
-cd server
-npm install
-npm start
-```
+1. Install Node.js 18 or newer, Flutter, and MongoDB. Start MongoDB locally or prepare a MongoDB Atlas connection.
+2. Open a terminal in `server/` and install the API dependencies:
 
-In another terminal:
+   ```bash
+   cd server
+   npm install
+   ```
 
-```bash
-cd client
-flutter pub get
-flutter run
-```
+3. Create `server/.env` with the API configuration:
 
-Provide the server's database, JWT, mail, and runtime settings through local environment configuration. Set the client API endpoint for your emulator or physical device.
+   ```dotenv
+   NODE_ENV=development
+   PORT=3000
+   DATABASE=mongodb://127.0.0.1:27017/gaspino
+   JWT_SECRET=replace-with-a-long-random-value
+   JWT_EXPIRE_IN=1d
+   REFRESH_TOKEN_SECRET=replace-with-another-long-random-value
+   REFRESH_TOKEN_EXPIRE_IN=30d
+   EmailMailer=your-smtp-host
+   PORTMAILER=587
+   USERMAILER=your-development-email
+   PASSWORDMAILER=your-email-app-password
+   ```
+
+4. Start the backend:
+
+   ```bash
+   npm start
+   ```
+
+5. In `client/.env`, set `URL` to the API prefix and `URLIMAGE` to the server's image URL. For an Android emulator, use values such as:
+
+   ```dotenv
+   URL=http://10.0.2.2:3000/api/v1
+   URLIMAGE=http://10.0.2.2:3000/images/
+   ```
+
+   Use `localhost` for a desktop client or the computer's LAN IP for a physical phone.
+
+6. Open another terminal and install the Flutter dependencies:
+
+   ```bash
+   cd client
+   flutter pub get
+   flutter devices
+   ```
+
+7. Run the application:
+
+   ```bash
+   flutter run
+   ```
+
+Keep development credentials local and never commit production secrets.
